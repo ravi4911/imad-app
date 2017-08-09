@@ -1,8 +1,8 @@
 //code  for counter
 
 var counter = document.getElementById('counter');
-
-button.onclick = function(){
+var counter = 0;
+/*button.onclick = function(){
   
   //create a request object.
   var request = new XMLHttpRequest();
@@ -22,4 +22,10 @@ button.onclick = function(){
   //make request
   request.open('GET','https://ravivaniya4911.imad.hasura-app.io/counter',true);
   request.send(null);
+};*/
+
+button.onclick = function(){
+  counter = counter + 1;
+  var span = document.getElementById('count');
+    span.innerHTML = count.toString();
 };
