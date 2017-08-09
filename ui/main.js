@@ -1,22 +1,3 @@
-/*console.log('Loaded!');
-
-var element = document.getElementById('main-text');
-
-element.innerHtml = 'New javascript';
-
-//moving image
-var img = document.getElementById('madi');
-
-var marginLeft = 0;
-
-function moveRight(){
-    marginLeft = marginLeft + 10;
-    img.style.marginLeft = marginLeft + 'px';
-}
-img.onclick = function() {
-    var interval = setInterval(moveRight,100);
-};*/
-
 //code  for counter
 
 var counter = document.getElementById('counter');
@@ -39,6 +20,6 @@ button.onclick = function(){
   };
   
   //make request
-  request.open('GET','http://ravivaniya4911.imad.hasura-app.io/counter',true);
+  request.open('GET','https://ravivaniya4911.imad.hasura-app.io/counter',true);
   request.send(null);
 };
