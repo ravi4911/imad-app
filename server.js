@@ -25,7 +25,7 @@ var htmlTemplate = `
     <!DOCTYPE html>
     <head>
         <title>
-            Article-one | Ravi Vaniya
+            ${title}
         </title>
         <meta name="viewport" content="width=device-width initial-scale=1"/>
         <link href="/ui/style.css" rel="stylesheet" />
@@ -38,23 +38,14 @@ var htmlTemplate = `
             <hr>
             <div>
                 <h3>
-                    Artticle One
+                    ${heading}
                 </h3>
             </div>
             <div>
-                08 August 2017
+                ${date}
             </div>
             <div>
-                <p>
-                    Content on article one.Content on article one.Content on article one.Content on article one.
-                    Content on article one.Content on article one.Content on article one.Content on article one.
-                    Content on article one.Content on article one.Content on article one.Content on article one.
-                </p>
-                <p>
-                    Content on article one.Content on article one.Content on article one.Content on article one.
-                    Content on article one.Content on article one.Content on article one.Content on article one.
-                    Content on article one.Content on article one.Content on article one.Content on article one.
-                </p>
+                ${content}
             </div>
         </div>
     </body>
