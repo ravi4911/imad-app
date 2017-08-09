@@ -5,6 +5,24 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 
+var content = {
+    title:'Article-one | Ravi Vaniya',
+    heading:'Artticle One',
+    date:'08 August 2017',
+    content:`<p>
+                    Content on article one.Content on article one.Content on article one.Content on article one.
+                    Content on article one.Content on article one.Content on article one.Content on article one.
+                    Content on article one.Content on article one.Content on article one.Content on article one.
+                </p>
+                <p>
+                    Content on article one.Content on article one.Content on article one.Content on article one.
+                    Content on article one.Content on article one.Content on article one.Content on article one.
+                    Content on article one.Content on article one.Content on article one.Content on article one.
+                </p>`
+};
+
+
+
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
