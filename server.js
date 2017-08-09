@@ -5,20 +5,38 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 
-var articleOne = {
-    title:'Article-one | Ravi Vaniya',
-    heading:'Artticle One',
-    date:'08 August 2017',
-    content:`<p>
-                    Content on article one.Content on article one.Content on article one.Content on article one.
-                    Content on article one.Content on article one.Content on article one.Content on article one.
-                    Content on article one.Content on article one.Content on article one.Content on article one.
-                </p>
-                <p>
-                    Content on article one.Content on article one.Content on article one.Content on article one.
-                    Content on article one.Content on article one.Content on article one.Content on article one.
-                    Content on article one.Content on article one.Content on article one.Content on article one.
+var articles = {
+    articleOne = {
+        title:'Article-one | Ravi Vaniya',
+        heading:'Artticle One',
+        date:'08 August 2017',
+        content:`<p>
+                        Content on article one.Content on article one.Content on article one.Content on article one.
+                        Content on article one.Content on article one.Content on article one.Content on article one.
+                        Content on article one.Content on article one.Content on article one.Content on article one.
+                    </p>
+                    <p>
+                        Content on article one.Content on article one.Content on article one.Content on article one.
+                        Content on article one.Content on article one.Content on article one.Content on article one.
+                        Content on article one.Content on article one.Content on article one.Content on article one.
+                    </p>`
+    },
+    articleTwo = {
+        title:'Article-two | Ravi Vaniya',
+        heading:'Artticle Two',
+        date:'18 August 2017',
+        content:`<p>
+                    This is content of my second article.
                 </p>`
+    },
+    articleThree = {
+        title:'Article-three | Ravi Vaniya',
+        heading:'Artticle Three',
+        date:'28 August 2017',
+        content:`<p>
+                    This is content of my third article.This is content of my third article.This is content of my third article.
+                </p>`
+    },
 };
 
 
@@ -71,11 +89,11 @@ app.get('/article-one', function (req, res) {
 });
 
 app.get('/article-two', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
+  res.send(createTemplate(articleTwo));
 });
 
 app.get('/article-three', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
+  res.send(createTemplate(articleThree));
 });
 
 app.get('/ui/style.css', function (req, res) {
