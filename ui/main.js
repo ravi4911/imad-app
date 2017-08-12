@@ -1,8 +1,8 @@
 //code  for counter
 
-var counter = document.getElementById('counter');
-var button;
-button.onclick = function(){
+var button = document.getElementById('counter');
+
+button.onClick = function(){
   
   //create a request object.
   var request = new XMLHttpRequest();
