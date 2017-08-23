@@ -109,6 +109,7 @@ app.get('/counter',function(req,res){
     res.send(counter.toString());
 });
 
+//SELECT * FROM article where title ='';DELETE WHERE a= 'asdgf'
 app.get('/articles/:articleName', function (req, res) {
    // var articleName = req.params.articleName;
     pool.query("SELECT * FROM article where title  = '"+ req.params.articleName + "'",function(err,result){
