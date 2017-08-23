@@ -11,7 +11,7 @@ var config = {
     port:'5432',
     password:process.env.DB_PASSWORD
 };
-var articles = {
+//var articles = {
     'article-one' : {
         title:'Article-one | Ravi Vaniya',
         heading:'Artticle One',
