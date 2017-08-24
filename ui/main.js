@@ -1,8 +1,6 @@
-//code  for counter
+var submit = document.getElementById('submit_btn');
 
-var button = document.getElementById('counter');
-
-button.onClick = function(){
+submit.onClick = function(){
   
   //create a request object.
   var request = new XMLHttpRequest();
@@ -12,14 +10,21 @@ button.onClick = function(){
     if(request.readyState === XMLHttpRequest.DONE){
         //take some action
         if(request.status === 200){
-            var counter = request.responseText;
-            var span = document.getElementById('count');
-            span.innerHTML = count.toString();
+            alert('Logged in succesfully');
+        }else if(request.status === 403){
+            alert('Username/password is invalid');
+        }else if(request.status === 500){
+            alert('some error occured on server');
         }
     }  
   };
   
   //make request
-  request.open('GET','http://ravivaniya4911.imad.hasura-app.io/counter',true);
-  request.send(null);
+  var username = document.getElementById('username').value;
+  var password = document.getElementById('password').value;
+  console.log('username');
+  console.log('password');
+  request.open('POST','http://ravivaniya4911.imad.hasura-app.io/login',true);
+  request.setRequestHeader('Content-Type','application/json');
+  request.send(JSON.stringify({username: username,password:password}));
 };
