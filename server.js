@@ -2,6 +2,7 @@ var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
 var Pool = require('pg').Pool;
+var crypto = require('crypto');
 var app = express();
 app.use(morgan('combined'));
 var config = {
@@ -10,39 +11,6 @@ var config = {
     host:'db.imad.hasura-app.io',
     port:'5432',
     password:process.env.DB_PASSWORD
-};
-//var articles = {
-    'article-one' : {
-        title:'Article-one | Ravi Vaniya',
-        heading:'Artticle One',
-        date:'08 August 2017',
-        content:`<p>
-                        Content on article one.Content on article one.Content on article one.Content on article one.
-                        Content on article one.Content on article one.Content on article one.Content on article one.
-                        Content on article one.Content on article one.Content on article one.Content on article one.
-                    </p>
-                    <p>
-                        Content on article one.Content on article one.Content on article one.Content on article one.
-                        Content on article one.Content on article one.Content on article one.Content on article one.
-                        Content on article one.Content on article one.Content on article one.Content on article one.
-                    </p>`
-    },
-    'article-two' : {
-        title:'Article-two | Ravi Vaniya',
-        heading:'Artticle Two',
-        date:'18 August 2017',
-        content:`<p>
-                    This is content of my second article.
-                </p>`
-    },
-    'article-three' : {
-        title:'Article-three | Ravi Vaniya',
-        heading:'Artticle Three',
-        date:'28 August 2017',
-        content:`<p>
-                    This is content of my third article.This is content of my third article.This is content of my third article.
-                </p>`
-    },
 };
 
 
@@ -88,6 +56,17 @@ function createTemplate(data){
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
+});
+
+function hash(input,salt){
+    //we will create hash function?
+    var hashed = crypto.pbkdf2Sync(input, 'salt', 100000, 512, 'sha512');
+    return hashed.toString('hex');
+}
+
+app.get('/hash/:input', function (req, res) {
+  var hashedString = hash(req.params.input,'this-is-random-string');
+  res.send(hashedString);
 });
 
 var pool = new Pool(config);
