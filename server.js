@@ -5,8 +5,8 @@ var Pool = require('pg').Pool;
 var crypto = require('crypto');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-
 var app = express();
+
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(session({
@@ -68,15 +68,9 @@ app.get('/', function (req, res) {
 });
 
 function hash(input,salt){
-    //we will create hash function?
     var hashed = crypto.pbkdf2Sync(input, 'salt', 100000, 512, 'sha512');
     return ["pbkdf2","10000",salt,hashed.toString('hex')].join('$');
 }
-
-app.get('/hash/:input', function (req, res) {
-  var hashedString = hash(req.params.input,'this-is-random-string');
-  res.send(hashedString);
-});
 
 app.post('/create-user', function (req, res) {
     
@@ -107,12 +101,8 @@ app.post('/login',function(req,res){
                 var salt = dbString.split('$')[2];
                 var hashedPassword = hash(password,salt);
                 if(hashedPassword == dbString){
-                    //set session
                     req.session.auth = {userId: result.rows[0].id};
-    
-                    res.send('Creditials correct');
-                    
-                    
+                    res.send('Creditials correct');    
                 }else{
                     res.send(403).send('username/password invalid');
                 }
@@ -136,8 +126,6 @@ app.get('/logout',function(req,res){
 
 var pool = new Pool(config);
 app.get('/test-db',function(req,res){
-    //make a select request
-    //we get respose from it
     pool.query('SELECT * FROM test',function(err,res){
         if(err){
             res.status(500).send(err,toString());
@@ -147,13 +135,6 @@ app.get('/test-db',function(req,res){
     });
 });
 
-var counter = 0;
-app.get('/counter',function(req,res){
-    counter = counter + 1;
-    res.send(counter.toString());
-});
-
-//SELECT * FROM article where title ='\';DELETE WHERE a=\'asdgf'
 app.get('/articles/:articleName', function (req, res) {
    // var articleName = req.params.articleName;
     pool.query("SELECT * FROM article where title  = $1",[req.params.articleName],function(err,result){
@@ -179,15 +160,7 @@ app.get('/ui/main.js', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'main.js'));
 });
 
-app.get('/ui/madi.png', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'madi.png'));
-});
-
-
-// Do not change port, otherwise your app won't run on IMAD servers
-// Use 8080 only for local development if you already have apache running on 80
-
-var port = 80;
+var port = 8080;
 app.listen(port, function () {
   console.log(`IMAD course app listening on port ${port}!`);
 });
